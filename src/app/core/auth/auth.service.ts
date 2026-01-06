@@ -1,80 +1,55 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, from, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { SupabaseService } from '../services/supabase.service';
-import { AuthResponse, User } from '@supabase/supabase-js';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private _user = new BehaviorSubject<User | null>(null);
-
+  private _apiService = inject(ApiService);
+  private _userService = inject(UserService);
+  private _router = inject(Router);
   constructor(
-    private supabaseService: SupabaseService
+
   ) {
-
-    from(this.supabaseService.getSession())
-      .pipe(
-        tap(({ data }) => this._user.next(data.session?.user ?? null)),
-        catchError(err => {
-          console.error('Error getting session:', err);
-          return throwError(() => err);
-        })
-      )
-      .subscribe();
-
-      this.supabaseService.onAuthStateChange((_event, session) => {
-        this._user.next(session?.user ?? null);
-      });
-
   }
 
-  get user$(): Observable<User | null> {
-    return this._user.asObservable();
-  }
-
-  signUp(email: string, password: string): Observable<AuthResponse> {
-    return from(this.supabaseService.signUp(email, password)).pipe(
-      tap(({ error }) => {
-        if (error) throw error;
+  signIn(email: string, password: string): Observable<any> {
+    return this._apiService.signIn(email, password).pipe(
+      tap((response: any) => {
+        if (response && response.user) {
+          this._userService.setUser(response.user);
+        }
       }),
       catchError(err => {
-        console.error('SignUp error:', err);
         return throwError(() => err);
-      }),
-      tap(() => {})
+      })
     );
   }
 
-  signIn(email: string, password: string): Observable<AuthResponse> {
-    return from(this.supabaseService.signIn(email, password)).pipe(
-      tap(({ error }) => {
-        if (error) throw error;
+  signUp(email: string, password: string, displayName: string): Observable<any> {
+    return this._apiService.signUp(email, password, displayName).pipe(
+      tap((response) => {
+        console.log('Sign up success:', response);
       }),
-      catchError(err => {
-        console.error('SignIn error:', err);
-        return throwError(() => err);
-      }),
-      tap(() => {})
+      catchError(err => throwError(() => err))
     );
   }
 
-  signOut(): Observable<any> {
-    return from(this.supabaseService.signOut()).pipe(
-      tap(({ error }) => {
-        if (error) throw error;
-        this._user.next(null);
+  logout(): Observable<any> {
+    return this._apiService.signOut().pipe(
+      tap(() => {
+        this._userService.clearUser();
+        this._router.navigate(['/login']);
       }),
       catchError(err => {
-        console.error('SignOut error:', err);
+        this._userService.clearUser();
         return throwError(() => err);
-      }),
-      tap(() => {})
+      })
     );
   }
 
-  getCurrentUser(): User | null {
-    return this._user.value;
-  }
 }

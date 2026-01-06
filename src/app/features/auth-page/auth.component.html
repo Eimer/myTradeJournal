@@ -1,0 +1,61 @@
+<div class="auth-page">
+    <div class="auth-page__container">
+        <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="auth-form">
+            <h2 class="auth-form__title">
+                @switch (authState.state) {
+                    @case ('login') {
+                      Loggin in
+                    }
+                    @case ('register') {
+                      Create an account
+                    }
+                  }
+            </h2>
+
+            @if (authState.state === 'register') {
+            <mat-form-field appearance="outline" class="auth-form__field">
+                <mat-label>Your name</mat-label>
+                <input matInput formControlName="displayName" placeholder="Your name">
+                <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+            }
+
+            <mat-form-field appearance="outline" class="auth-form__field">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" placeholder="trade@example.com">
+                <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="auth-form__field">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix type="button" (click)="hidePassword = !hidePassword">
+                    <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            @if (errorMessage) {
+            <div class="auth-form__error">{{ errorMessage }}</div>
+            }
+
+            <button mat-raised-button color="primary" type="submit" class="auth-form__submit-btn"
+                [disabled]="authForm.invalid || (loaderService.isLoading$ | async)">
+                <span>{{ authState.state }}</span>
+            </button>
+
+            <div class="auth-form__footer"> 
+                @switch(authState.state) {
+                    @case('login') {
+                        <span class="auth-form__footer-text">Not registered? </span>
+                        <a routerLink="/register" class="auth-form__link">Create an account</a>
+                    }
+                    @case('register') {
+                        <span class="auth-form__footer-text">Already have an account? </span>
+                        <a routerLink="/login" class="auth-form__link">Log in</a>
+                    }
+                }
+            </div>
+
+        </form>
+    </div>
+</div>
