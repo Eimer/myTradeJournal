@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 # 🚀 Trading App
 
 Modern Trading Platform built with **Angular 19** and **Supabase**.
+=======
+# 🚀 Trading App "Trade journal"
+
+Modern Trading Platform built with **Angular 21** and **Supabase**.
+>>>>>>> 84723dceb4ca96ac83ebff6e72ebc7ae7cce23d2
 
 ---
 
@@ -12,7 +18,11 @@ The project is being actively developed; some features might be incomplete or su
 
 ## 🛠 Tech Stack
 
+<<<<<<< HEAD
 * **Frontend:** Angular 19 (Standalone Components)
+=======
+* **Frontend:** Angular 21 (Standalone Components)
+>>>>>>> 84723dceb4ca96ac83ebff6e72ebc7ae7cce23d2
 * **Backend:** [Supabase](https://supabase.com/) (Auth, Database, Edge Functions)
 * **State Management:** RxJS (Reactive programming with BehaviorSubjects)
 * **Styling:** SCSS
@@ -50,4 +60,12 @@ The application is built using a **Clean Service Architecture**:
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/your-username/trading-app.git](https://github.com/your-username/trading-app.git)
+   git clone https://github.com/Eimer/myTradeJournal.git
+
+### How to Run locally
+- Install packages:
+  ```bash
+  npm install
+- Use:
+  ```bash
+  ng serve --open
