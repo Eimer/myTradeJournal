@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { from, Observable, tap } from 'rxjs';
+import { from, map, Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -19,6 +19,7 @@ export class ApiService {
 
   constructor() {
   }
+
 
   signUp(email: string, password: string, displayName: string): Observable<any> {
     const body = {
@@ -53,6 +54,15 @@ export class ApiService {
           localStorage.removeItem('sb-refresh-token');
         })
       );
+  }
+
+  getUser(): Observable<any> {
+    const token = localStorage.getItem('sb-access-token');
+    if (!token) {
+      return from([null]); 
+    }
+    const authHeaders = this.headers.set('Authorization', `Bearer ${token}`);
+    return this._http.get(`${this.url}/auth/v1/user`, { headers: authHeaders });
   }
 
   getSession(): Observable<any> {

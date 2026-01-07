@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, from, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, finalize, tap } from 'rxjs/operators';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
@@ -21,12 +21,15 @@ export class AuthService {
     return this._apiService.signIn(email, password).pipe(
       tap((response: any) => {
         if (response && response.user) {
-          this._userService.setUser(response.user);
+          const user = response.user;
+          this._userService.setUser({
+            id: user.id,
+            email: user.email,
+            displayName: user.user_metadata?.['display_name'] || 'Trader'
+          });
         }
       }),
-      catchError(err => {
-        return throwError(() => err);
-      })
+      catchError(err => throwError(() => err))
     );
   }
 
@@ -41,13 +44,9 @@ export class AuthService {
 
   logout(): Observable<any> {
     return this._apiService.signOut().pipe(
-      tap(() => {
-        this._userService.clearUser();
+      finalize(() => {
+        this._userService.setLoggedOut();
         this._router.navigate(['/login']);
-      }),
-      catchError(err => {
-        this._userService.clearUser();
-        return throwError(() => err);
       })
     );
   }

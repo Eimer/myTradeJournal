@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
+import { ApiService } from './core/services/api.service';
+import { UserService } from './core/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +9,20 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class App {
-  protected readonly title = signal('myTradeJournal');
+export class AppComponent implements OnInit {
+  private readonly _apiService = inject(ApiService);
+  private readonly _userService = inject(UserService);
+  private readonly _router = inject(Router);
+
+  constructor() {
+    
+  }
+
+  ngOnInit(): void {
+    this._userService.loadUser();
+  }
+
 }
+
+
+
