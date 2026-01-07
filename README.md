@@ -1,4 +1,4 @@
-# 🚀 Trading journal App
+# 🚀 Trading App "Trade journal"
 
 Modern Trading Platform built with **Angular 21** and **Supabase**.
 
@@ -50,14 +50,12 @@ The application is built using a **Clean Service Architecture**:
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/your-username/trading-app.git](https://github.com/your-username/trading-app.git)
+   git clone https://github.com/Eimer/myTradeJournal.git
 
-### 2. Install Dependencies
-This project uses **Angular 21**. To install all required packages and dependencies, run:
-```bash
-npm install
-
-### 3. Start the Application
-To run the project locally and automatically open it in your default browser, execute:
-```bash
-ng serve --open
+### How to Run locally
+- Install packages:
+  ```bash
+  npm install
+- Use:
+  ```bash
+  ng serve --open
