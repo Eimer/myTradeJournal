@@ -1,59 +1,53 @@
-# MyTradeJournal
+# 🚀 Trading App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+Modern Trading Platform built with **Angular 19** and **Supabase**.
 
-## Development server
+---
 
-To start a local development server, run:
+### ⚠️ Project Status: Under Development
+**Current Phase:** Implementation of core authentication and user state management. 
+The project is being actively developed; some features might be incomplete or subject to change.
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🛠 Tech Stack
 
-## Code scaffolding
+* **Frontend:** Angular 19 (Standalone Components)
+* **Backend:** [Supabase](https://supabase.com/) (Auth, Database, Edge Functions)
+* **State Management:** RxJS (Reactive programming with BehaviorSubjects)
+* **Styling:** SCSS
+* **API:** REST via Angular HttpClient
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## 🏗 Architecture & Logic
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The application is built using a **Clean Service Architecture**:
 
-```bash
-ng generate --help
-```
+* **ApiService:** Handles raw HTTP communication with Supabase Auth API.
+* **UserService:** Manages the global state of the user (`loggedIn`, `loggedOut`, `waitAuth`) and stores user data.
+* **AuthService:** Coordinates business logic like login, registration, and logout flows.
+* **AuthGuard:** A robust protection layer that handles session recovery and smart redirection via `returnUrl`.
 
-## Building
+---
 
-To build the project run:
+## ✅ Implemented Features
 
-```bash
-ng build
-```
+- [x] **Secure Sign Up:** User registration with metadata (DisplayName).
+- [x] **JWT Authentication:** Login flow with `access_token` and `refresh_token` storage.
+- [x] **Session Persistence:** App automatically recovers user session from `localStorage` on page reload.
+- [x] **Reactive Auth State:** Components react instantly to login/logout events.
+- [x] **Route Protection:** Unauthorized users are redirected to login with a saved return path.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🚀 Getting Started
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Prerequisites
+* Node.js & npm
+* Angular CLI (`npm install -g @angular/cli`)
 
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/your-username/trading-app.git](https://github.com/your-username/trading-app.git)
