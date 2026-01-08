@@ -1,0 +1,29 @@
+<div class="flex-column flex-center gap-2 not-found-page p-1 text-center">
+
+    <div class="flex-column flex-center">
+        <h1 class="h-main m-0">
+            404
+        </h1>
+    </div>
+
+    <h1>Page Not fonud</h1>
+
+    <p>
+        The requested <span>asset path</span> does not exist or has been moved to a different terminal.
+        Check the URL or return to your Home page.
+    </p>
+
+    <div class="flex-row flex-center gap-1">
+        <button mat-flat-button color="primary" routerLink="/" >
+            Back to Home page
+        </button>
+
+        <button mat-stroked-button (click)="goBack()">
+            Go Back
+        </button>
+    </div>
+
+    <div>
+        <small>System Status: <span class="highlight">ERROR_404_NOT_FOUND</span></small>
+    </div>
+</div>
