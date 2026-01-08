@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthState } from '../../core/models/auth.model';
 import { LoaderService } from '../../core/services/loader.service';
+import { CapitalizePipe } from '../../shared/pipes/capitalize-pipe';
 
 @Component({
   selector: 'auth.component',
@@ -20,7 +21,7 @@ import { LoaderService } from '../../core/services/loader.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule],
+    MatIconModule, CapitalizePipe],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
 })

@@ -38,9 +38,9 @@
             <div class="auth-form__error">{{ errorMessage }}</div>
             }
 
-            <button mat-raised-button color="primary" type="submit" class="auth-form__submit-btn"
+            <button matButton="filled" color="primary" type="submit" class="auth-form__submit-btn"
                 [disabled]="authForm.invalid || (loaderService.isLoading$ | async)">
-                <span>{{ authState.state }}</span>
+                <span>{{ authState.state | capitalize }}</span>
             </button>
 
             <div class="auth-form__footer"> 

@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { authGuard } from './core/auth/auth.guard';
+import { NotFoundComponent } from './features/not-found/not-found.component';
 
 export const routes: Routes = [
     {
@@ -25,6 +26,7 @@ export const routes: Routes = [
     },
     {
       path: '**',
-      redirectTo: ''
+      loadComponent: () => import('./features/not-found/not-found.component').then(m => m.NotFoundComponent),
+      title: '404 - Page not found'
     }
   ];
