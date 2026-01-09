@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng build --configuration production --base-href /myTradeJournal/ && npx ngh --dir=dist/my-trade-journal/browser"
   },
   "prettier": {
     "printWidth": 100,
