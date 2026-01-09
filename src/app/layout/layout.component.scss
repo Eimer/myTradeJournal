@@ -1,15 +1,20 @@
 .layout-wrapper {
     height: 100%;
 
-    mat-drawer {
+    .mat-drawer {
         border-radius: 0 !important;
         border-right: 1px solid var(--border-color);
         width: 300px;
     }
 
-    mat-drawer-container {
+    .mat-drawer-container {
         height: 100%;
     }
+
+    .mat-drawer-content {
+        height: auto;
+    }
+
 }
 
 
