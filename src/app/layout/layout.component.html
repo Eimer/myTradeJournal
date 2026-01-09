@@ -1,8 +1,28 @@
+<!-- @if( (userService.user$ | async)?.status === userAuthStatus.loggedIn ) {
+<app-header>
+
+</app-header>
+} -->
 <app-loader></app-loader>
+<div class="layout-wrapper">
+
+    <mat-drawer-container class="layout-container" [hasBackdrop]="true">
+        <mat-drawer #sidenav="matDrawer" mode="over">
+            @if ((userService.user$ | async)?.status === userAuthStatus.loggedIn) {
+              <app-sidenav></app-sidenav>
+            }
+          </mat-drawer>
+
+          <mat-drawer-content>
+            <app-header (toggleMenu)="sidenav.toggle()"></app-header>
+            <main class="main p-1 br-bx">
+                <div class="container br-bx">
+                    <router-outlet />
+                </div>
+            </main>
+          </mat-drawer-content>
+          
+    </mat-drawer-container>
+</div>
 
 
-<main class="main p-1 br-bx">
-    <div class="container br-bx">
-        <router-outlet />
-    </div>
-</main>

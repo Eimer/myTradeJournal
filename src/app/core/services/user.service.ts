@@ -47,7 +47,7 @@ export class UserService {
 
   setLoggedOut(): void {
     this._user$.next({ status: UserAuthStatus.loggedOut });
-    
+
     localStorage.removeItem('sb-access-token');
     localStorage.removeItem('sb-refresh-token');
   }

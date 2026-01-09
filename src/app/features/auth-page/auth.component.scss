@@ -1,7 +1,4 @@
 .auth-page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 100%;
 
     &__container {
@@ -9,7 +6,7 @@
         max-width: 540px;
         padding: 1em;
         border-radius: 15px;
-        border: 1px solid #53535353;
+        border: 1px solid var(--border-color);
 
         .auth-form {
             display: flex;

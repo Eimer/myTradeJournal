@@ -10,9 +10,7 @@ import { UserService } from './core/services/user.service';
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  private readonly _apiService = inject(ApiService);
   private readonly _userService = inject(UserService);
-  private readonly _router = inject(Router);
 
   constructor() {
     
