@@ -1,0 +1,1 @@
+import{$a as s,Nb as o,tb as i,ub as n}from"./chunk-644IJ2L6.js";var a=class e{static \u0275fac=function(t){return new(t||e)};static \u0275cmp=s({type:e,selectors:[["app-statistics"]],decls:2,vars:0,template:function(t,p){t&1&&(i(0,"p"),o(1,"statistics works!"),n())},encapsulation:2})};export{a as StatisticsComponent};
