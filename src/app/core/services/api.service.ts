@@ -44,9 +44,10 @@ export class ApiService {
   }
 
   signOut(): Observable<any> {
+    
     const token = localStorage.getItem('sb-access-token');
     const headers = this.headers.set('Authorization', `Bearer ${token}`);
-
+    
     return this._http.post(`${this.url}/auth/v1/logout`, {}, { headers })
       .pipe(
         tap(() => {

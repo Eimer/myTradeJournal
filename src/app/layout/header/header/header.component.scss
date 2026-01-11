@@ -1,6 +1,8 @@
 .header {
-    height: 3em;
+    height: 5em;
     background-color: var(--bg-main);
     border-bottom: 1px solid var(--border-color);
     align-items: center;
+    position: fixed;
+    width: 100%;
 }

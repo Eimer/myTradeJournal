@@ -17,21 +17,38 @@ export const routes: Routes = [
         path: 'home',
         pathMatch: 'full',
         canActivate: [authGuard],
-        loadComponent: () => import('./features/home/home/home.component').then(m => m.HomeComponent)
+        loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent),
+        title: 'Home'
+      },
+      {
+        path: 'statistics',
+        pathMatch: 'full',
+        canActivate: [authGuard],
+        loadComponent: () => import('./features/statistics/statistics.component').then(m => m.StatisticsComponent),
+        title: 'Statistics'
+      },
+      {
+        path: 'trades',
+        pathMatch: 'full',
+        canActivate: [authGuard],
+        loadComponent: () => import('./features/trades/trades.component').then(m => m.TradesComponent),
+        title: 'Trades'
       },
       {
         path: 'login',
-        loadComponent: () => import('./features/auth-page/auth.component').then(m => m.AuthComponent)
+        loadComponent: () => import('./features/auth-page/auth.component').then(m => m.AuthComponent),
+        title: 'Login'
       },
       {
         path: 'register',
-        loadComponent: () => import('./features/auth-page/auth.component').then(m => m.AuthComponent)
+        loadComponent: () => import('./features/auth-page/auth.component').then(m => m.AuthComponent),
+        title: 'Register'
       },
     ]
   },
   {
     path: '**',
     loadComponent: () => import('./features/not-found/not-found.component').then(m => m.NotFoundComponent),
-    title: '404 - Page Liquidated'
+    title: '404 - Page not found'
   }
 ];

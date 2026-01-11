@@ -23,7 +23,6 @@ export class LayoutComponent {
   constructor() {
     this.userService.user$.subscribe( (data) => {
       console.log(data?.status === this.userAuthStatus.loggedIn);
-      
     } )
   }
 }

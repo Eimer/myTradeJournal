@@ -1,1 +1,34 @@
-<div  class="sidenav"></div>
+<div class="sidenav flex-column">
+    <div class="sidenav_header flex-row">
+        <button mat-icon-button (click)="onCloseClick()" class="close-btn">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-nav-list class="sidenav_menu">
+        <a mat-list-item routerLink="/home" routerLinkActive="active-link">
+            <mat-icon matListItemIcon>home</mat-icon>
+            <span matListItemTitle>Home</span>
+        </a>
+
+        <a mat-list-item routerLink="/statistics" routerLinkActive="active-link">
+            <mat-icon matListItemIcon>bar_chart</mat-icon>
+            <span matListItemTitle>Statistics</span>
+        </a>
+
+        <a mat-list-item routerLink="/trades" routerLinkActive="active-link">
+            <mat-icon matListItemIcon>swap_horiz</mat-icon>
+            <span matListItemTitle>Trades</span>
+        </a>
+    </mat-nav-list>
+
+    <div class="sidenav_footer">
+        <mat-divider></mat-divider>
+        <button mat-button class="logout-btn" (click)="onLogout()" [disabled] = "(loaderService.isLoading$ | async)">
+            <mat-icon>logout</mat-icon>
+            Logout
+        </button>
+    </div>
+
+
+</div>

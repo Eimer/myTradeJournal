@@ -2,16 +2,16 @@
 <div class="layout-wrapper">
 
     <mat-drawer-container class="layout-container" [hasBackdrop]="true">
-        <mat-drawer #sidenav="matDrawer" mode="over">
+        <mat-drawer #sidenav="matDrawer" mode="over" restoreFocus="false" [autoFocus]="false">
             @if ((userService.user$ | async)?.status === userAuthStatus.loggedIn) {
-            <app-sidenav></app-sidenav>
+            <app-sidenav (closeSidenav)="sidenav.close()"></app-sidenav>
             }
         </mat-drawer>
 
         <mat-drawer-content>
 
             @if( (userService.user$ | async)?.status === userAuthStatus.loggedIn ) {
-                <app-header (toggleMenu)="sidenav.toggle()"></app-header>
+            <app-header (toggleMenu)="sidenav.toggle()"></app-header>
             }
 
             <main class="main p-1 br-bx flex-column">
