@@ -57,9 +57,9 @@ export class AuthComponent implements OnInit {
     if (this.authForm.invalid) return;
     this.errorMessage = null;
     const { email, password, displayName } = this.authForm.getRawValue();
-    const request$ = this.authState.state === 'login' ? 
-    this._authService.signIn(email, password) 
-    : this._authService.signUp(email, password, displayName);
+    const request$ = this.authState.state === 'login' ?
+      this._authService.signIn(email, password)
+      : this._authService.signUp(email, password, displayName);
     request$.pipe(
       tap(() => {
         this._router.navigate(['/home']);

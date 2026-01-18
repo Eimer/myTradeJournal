@@ -1,1 +1,44 @@
-<p>trades works!</p>
+<table class="table mat-elevation-z8" mat-table multiTemplateDataRows [dataSource]="dataSource">
+
+  <ng-container matColumnDef="asset">
+    <th mat-header-cell *matHeaderCellDef>Asset</th>
+    <td mat-cell class="td-head" *matCellDef="let element"> {{element.asset}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef>Type</th>
+    <td mat-cell class="td-head" *matCellDef="let element"> {{element.type}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="duration">
+    <th mat-header-cell *matHeaderCellDef>Duration</th>
+    <td mat-cell class="td-head" *matCellDef="let element"> {{element.duration}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="pnl">
+    <th mat-header-cell *matHeaderCellDef>Pnl</th>
+    <td mat-cell  class="td-head" *matCellDef="let element"> {{element.pnl}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="detail-container" [class.expanded]="element === expandedElement">
+        <div class="detail-content">
+          <p><strong>Open Time:</strong> {{element.openTime | date:'short'}}</p>
+          <p><strong>Close Time:</strong> {{element.closeTime | date:'short'}}</p>
+          <p>Additional trade notes or charts can go here.</p>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay;" class="element-row"
+    (click)="expandedElement = expandedElement === row ? null : row">
+  </tr>
+
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"
+    [class.detail-row-hidden]="row !== expandedElement">
+  </tr>
+
+</table>

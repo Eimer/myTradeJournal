@@ -36,7 +36,7 @@
 
 .active-link {
     color: var(--primary-color) !important;
-    background-color: rgba(0, 106, 106, 0.05);
+    background-color: var(--hover-color);
 
     mat-icon {
         color: var(--primary-color);
