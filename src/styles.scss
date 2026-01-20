@@ -84,11 +84,22 @@ html {
   --hover-color: rgba(0, 106, 106, 0.05);
   --color-green-main: #009d1f;
   --color-red-main: #a30000;
+  --color-yellow-main: #e2df00;
 }
 
 .max-width {
   width: 100%;
   max-width: 1320px;
+}
+
+.icon-success {
+  color: #00c853;
+  vertical-align: middle;
+}
+
+.icon-fail {
+  color: #ff3d00;
+  vertical-align: middle;
 }
 
 .table {
@@ -128,6 +139,15 @@ html {
   .detail-content {
     padding: 16px;
     width: 100%;
+  }
+
+  .td-detail {
+    padding: 0;
+    border: none;
+  }
+
+  .element-row:hover td {
+    background-color: var(--bg-main);
   }
 
 }

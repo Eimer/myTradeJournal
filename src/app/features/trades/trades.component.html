@@ -1,13 +1,17 @@
-<table class="table mat-elevation-z8" mat-table multiTemplateDataRows [dataSource]="dataSource">
+<table class="table trades-table mat-elevation-z8" mat-table multiTemplateDataRows [dataSource]="(trades$ | async) || []">
 
   <ng-container matColumnDef="asset">
     <th mat-header-cell *matHeaderCellDef>Asset</th>
-    <td mat-cell class="td-head" *matCellDef="let element"> {{element.asset}} </td>
+    <td mat-cell class="td-head" *matCellDef="let element"> <b>{{element.asset}}</b> </td>
   </ng-container>
 
   <ng-container matColumnDef="type">
     <th mat-header-cell *matHeaderCellDef>Type</th>
-    <td mat-cell class="td-head" *matCellDef="let element"> {{element.type}} </td>
+    <td mat-cell class="td-head trade-type" *matCellDef="let element"> <span class="trade-type__value" [ngClass]="{
+      'trade-type__value-long': element.type === TradeType.LONG,
+      'trade-type__value-short': element.type === TradeType.SHORT
+    }"> {{element.type}} </span>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="duration">
@@ -17,11 +21,31 @@
 
   <ng-container matColumnDef="pnl">
     <th mat-header-cell *matHeaderCellDef>Pnl</th>
-    <td mat-cell  class="td-head" *matCellDef="let element"> {{element.pnl}} </td>
+    <td mat-cell class="td-head" *matCellDef="let element">
+      <span [ngClass]="{
+      'pnl-plus': element.pnl < 0,
+      'pnl-minus': element.pnl > 0,
+      'pnl-zero': element.pnl === 0
+    }">{{element.pnl}}</span>$
+    </td>
   </ng-container>
 
+  <ng-container matColumnDef="screenshot">
+    <th mat-header-cell *matHeaderCellDef>Screenshot</th>
+    <td mat-cell class="td-head" *matCellDef="let element">
+      <mat-icon class="icon-success" *ngIf="element.hasScreenshot">
+        check_circle
+      </mat-icon>
+
+      <mat-icon class="icon-fail" *ngIf="!element.hasScreenshot">
+        cancel
+      </mat-icon>
+    </td>
+  </ng-container>
+
+
   <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+    <td mat-cell *matCellDef="let element" class="td-detail" [attr.colspan]="columnsToDisplay.length">
       <div class="detail-container" [class.expanded]="element === expandedElement">
         <div class="detail-content">
           <p><strong>Open Time:</strong> {{element.openTime | date:'short'}}</p>

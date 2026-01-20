@@ -1,5 +1,6 @@
 export interface Trade {
     id?: string;
+    user_id?: string;
     asset: string;
     type: TradeType;
     openTime: Date | string;
@@ -7,9 +8,10 @@ export interface Trade {
     duration: string;
     pnl: number;
     userId?: string;
+    hasScreenshot: boolean;
 }
 
 export enum TradeType {
-    LONG = 'Long',
-    SHORT = 'Short'
+    LONG = 'long',
+    SHORT = 'short'
 }

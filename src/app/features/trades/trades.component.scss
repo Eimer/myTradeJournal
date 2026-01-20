@@ -1,0 +1,33 @@
+.trades-table {
+    .pnl-plus {
+        color: var(--color-red-main);
+    }
+
+    .pnl-minus {
+        color: var(--color-green-main);
+    }
+
+    .pnl-zero {
+        color: var(--color-yellow-main);
+    }
+
+    .trade-type {
+        &__value {
+            display: block;
+            padding: 5px;
+            width: 40px;
+            text-align: center;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+
+        &__value-long {
+            background-color: rgba(89, 243, 89, 0.672);
+        }
+
+        &__value-short {
+            background-color: rgba(242, 78, 78, 0.568);
+        }
+
+    }
+}

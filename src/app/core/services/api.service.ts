@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { from, map, Observable, tap } from 'rxjs';
+import { finalize, from, map, Observable, of, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
@@ -12,12 +12,23 @@ export class ApiService {
   private readonly url = environment.supabaseUrl;
   private readonly key = environment.supabaseKey;
 
-  private readonly headers = new HttpHeaders({
+  private readonly _headers = new HttpHeaders({
     'apikey': this.key,
     'Content-Type': 'application/json'
   });
 
   constructor() {
+  }
+
+  private get _authHeaders(): HttpHeaders {
+    const token = localStorage.getItem('sb-access-token');
+    let headers = this._headers;
+
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    return headers.set('Prefer', 'return=representation');
   }
 
 
@@ -27,12 +38,12 @@ export class ApiService {
       password,
       data: { display_name: displayName }
     };
-    return this._http.post(`${this.url}/auth/v1/signup`, body, { headers: this.headers });
+    return this._http.post(`${this.url}/auth/v1/signup`, body, { headers: this._headers });
   }
 
   signIn(email: string, password: string): Observable<any> {
     const body = { email, password };
-    return this._http.post(`${this.url}/auth/v1/token?grant_type=password`, body, { headers: this.headers })
+    return this._http.post(`${this.url}/auth/v1/token?grant_type=password`, body, { headers: this._headers })
       .pipe(
         tap((response: any) => {
           if (response.access_token) {
@@ -44,13 +55,9 @@ export class ApiService {
   }
 
   signOut(): Observable<any> {
-    
-    const token = localStorage.getItem('sb-access-token');
-    const headers = this.headers.set('Authorization', `Bearer ${token}`);
-    
-    return this._http.post(`${this.url}/auth/v1/logout`, {}, { headers })
+    return this._http.post(`${this.url}/auth/v1/logout`, {}, { headers: this._authHeaders })
       .pipe(
-        tap(() => {
+        finalize(() => {
           localStorage.removeItem('sb-access-token');
           localStorage.removeItem('sb-refresh-token');
         })
@@ -58,19 +65,25 @@ export class ApiService {
   }
 
   getUser(): Observable<any> {
-    const token = localStorage.getItem('sb-access-token');
-    if (!token) {
-      return from([null]); 
+    if (!localStorage.getItem('sb-access-token')) {
+      return from([null]);
     }
-    const authHeaders = this.headers.set('Authorization', `Bearer ${token}`);
-    return this._http.get(`${this.url}/auth/v1/user`, { headers: authHeaders });
+    return this._http.get(`${this.url}/auth/v1/user`, { headers: this._authHeaders });
   }
 
   getSession(): Observable<any> {
-    const session = localStorage.getItem('sb-access-token');
-    return new Observable(observer => {
-      observer.next(session ? { access_token: session } : null);
-      observer.complete();
+    const token = localStorage.getItem('sb-access-token');
+    return of(token ? { access_token: token } : null);
+  }
+
+  getTableData<T>(tableName: string): Observable<T[]> {
+
+    return this._http.get<T[]>(`${this.url}/rest/v1/${tableName}`, {
+      headers: this._authHeaders,
+      params: {
+        select: '*'
+      }
     });
   }
+
 }
